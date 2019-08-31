@@ -8,10 +8,12 @@ chrome.runtime.onConnect.addListener(function(portFrom) {
   if(portFrom.name === 'TaskExporter') {
     portFrom.onMessage.addListener(function(form) {
       if (form) {
+        var turndownService = new TurndownService();
         taskNumber = form.taskNumber;
         summary = form.summary;
-        document.getElementById('task-number').textContent = form.taskNumber;
-        document.getElementById('summary').textContent = form.summary;
+        description = turndownService.turndown(form.description);
+        document.getElementById('task-number').textContent = taskNumber;
+        document.getElementById('summary').textContent = summary;
         document.getElementById('message').textContent = '';
         getSettingsAndCheckIssue();
       }
@@ -38,13 +40,18 @@ function isIssueCreated(result) {
     DOM_COMPONENTS.createOpenLink(result.sections[0].issues[0].key);
     DOM_COMPONENTS.createCopyLink();
   } else {
-    DOM_COMPONENTS.createAssigneeSelect([settings.login].concat(settings.assignee.split('\n')));
+    const assignees = settings.assignee === '' ? [settings.login] : [settings.login].concat(settings.assignee.split('\n'));
+    DOM_COMPONENTS.createAssigneeSelect(assignees);
     DOM_COMPONENTS.createFormButton(create);
   }
 }
 
 function check(appSettings) {
   settings = appSettings;
+  if (settings.login === '' || settings.password === '') {
+    DOM_COMPONENTS.showMessage('Login or Password is not provided!', 2000);
+    return;
+  }
   SERVER.checkIssue(settings, CONSTANT.SEARCH_ISSUE_URL + taskNumber, isIssueCreated);
 }
 

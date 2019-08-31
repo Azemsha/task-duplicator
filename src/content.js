@@ -21,14 +21,14 @@ if (document.getElementById('key-val')) {
   message = {
     taskNumber: new URL(document.URL).searchParams.get("selectedIssue"),
     summary: popupHtml.getElementsByTagName('h1')[0].textContent,
-    description: popupHtml.getElementsByClassName('ak-renderer-document')[0].textContent,
+    description: popupHtml.getElementsByClassName('ak-renderer-document')[0].innerHTML,
   }
 } else {
   // new version
   message = {
     taskNumber: document.URL.substring(document.URL.lastIndexOf("/") + 1),
     summary: document.getElementsByTagName('h1')[0].textContent,
-    description: document.getElementsByClassName('ak-renderer-document')[0].textContent,
+    description: document.getElementsByClassName('ak-renderer-document')[0].innerHTML,
   }
 }
 contentPort.postMessage(message);

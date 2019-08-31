@@ -1,0 +1,47 @@
+{
+  "name": "TaskExporter",
+  "description": "Export issues to Internal Jira",
+  "version": "1.1",
+
+  "permissions": [
+    "webNavigation", "activeTab", "tabs", "*://*/"
+  ],
+
+  "options_ui": {
+    "page": "src/settings/settings.html",
+    "chrome_style": true
+  },
+
+  "background": {
+    "scripts": [
+      "src/background.js",
+      "src/settings/settings.service.js"
+    ]
+  },
+
+  "icons": {
+    "48": "src/icon.png"
+  },
+
+  "browser_action": {
+    "default_title": "Exports issues into the internal Jira",
+    "default_icon": "src/icon.png",
+    "default_popup": "src/popup.html"
+  },
+
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.atlassian.net/*"
+      ],
+      "js": ["src/popup.js",
+        "src/utils/action.util.js",
+        "src/utils/component.util.js",
+        "src/utils/constant.js",
+        "src/content.js"
+      ]
+    }
+  ],
+
+  "manifest_version": 2
+}
