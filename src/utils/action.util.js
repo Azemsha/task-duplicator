@@ -1,10 +1,10 @@
 function taskUtils() {
-    this.getBody = function (taskNumber, summary, description, assignee) {
+    this.getBody = function (taskNumber, summary, description, assignee, projectKey) {
         return {
             fields: {
                 project:
                     {
-                        key: CONSTANT.PROJECT_KEY
+                        key: projectKey
                     },
                 summary: taskNumber + ": " + summary,
                 description: description,

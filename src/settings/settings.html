@@ -1,40 +1,57 @@
 <!doctype html>
 <html>
-  <head>
+<head>
     <title>Task Exporter Settings</title>
-  </head>
-  <body>
-  <table>
+</head>
+<body>
+<table>
     <tr>
-      <td>
-        <label for="login">Login:</label>
-      </td>
-      <td>
-        <input type="text" id="login">
-      </td>
+        <td>
+            <label for="login">Login:</label>
+        </td>
+        <td>
+            <input type="text" id="login">
+        </td>
     </tr>
     <tr>
-      <td>
-        <label for="password">Password:</label>
-      </td>
-      <td>
-        <input type="password" id="password">
-      </td>
+        <td>
+            <label for="password">Password:</label>
+        </td>
+        <td>
+            <input type="password" id="password">
+        </td>
     </tr>
     <tr>
-    <td>
-      <label for="assignee">Assignees:</label>
-    </td>
-    <td>
-      <textarea id="assignee"></textarea>
-    </td>
+        <td>
+            <label for="assignee">Assignees:</label>
+        </td>
+        <td>
+            <textarea id="assignee"></textarea>
+        </td>
     </tr>
-  </table>
+    <tr>
+        <td>
+            <label for="projectKey">Project key:</label>
+        </td>
+        <td>
+            <input type="text" id="projectKey">
+        </td>
+    </tr>
 
-  <div id="status"></div>
-  <button id="save">Save</button>
+    <tr>
+        <td>
+            <label for="jiraUrl">Jira URL (Internal):</label>
+        </td>
+        <td>
+            <input type="text" id="jiraUrl">
+        </td>
+    </tr>
+</table>
 
-  <script src="settings.service.js"></script>
-  <script src="settings.js"></script>
-  </body>
+<div id="status"></div>
+<button id="save">Save</button>
+
+<script src="settings.service.js"></script>
+<script src="settings.js"></script>
+</body>
 </html>

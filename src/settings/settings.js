@@ -29,6 +29,12 @@ function validateSettings(settings) {
     if (settings.password === '') {
         wrongFields.push('Password');
     }
+    if (settings.projectKey === '') {
+        wrongFields.push('Project Key');
+    }
+    if (settings.jiraUrl === '') {
+        wrongFields.push('Jira URL');
+    }
 
     if (wrongFields.length > 0) {
         showNotification('Please check ' + wrongFields.join(', ') + ' and try again');
@@ -39,10 +45,16 @@ function validateSettings(settings) {
 }
 
 function processSettings() {
-    var settings = {
+    let url = document.getElementById('jiraUrl').value;
+    if (url.charAt(url.length - 1) === '/') {
+        url = url.slice(0, -1);
+    }
+    let settings = {
         login: document.getElementById('login').value,
         password: document.getElementById('password').value,
-        assignee: document.getElementById('assignee').value
+        assignee: document.getElementById('assignee').value,
+        projectKey: document.getElementById('projectKey').value,
+        jiraUrl: url
     };
 
     if (validateSettings(settings)) {
@@ -57,6 +69,8 @@ function restoreOptions() {
     document.getElementById('login').value = settings.login || '';
     document.getElementById('password').value = settings.password || '';
     document.getElementById('assignee').value = settings.assignee || '';
+    document.getElementById('projectKey').value = settings.projectKey || '';
+    document.getElementById('jiraUrl').value = settings.jiraUrl || '';
 }
 
 document.addEventListener('DOMContentLoaded', restoreOptions);

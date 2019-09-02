@@ -36,8 +36,8 @@ function getSettingsAndCheckIssue() {
 
 function isIssueCreated(result) {
   if (result.sections[0].issues && result.sections[0].issues.length) {
-    DOM_COMPONENTS.createUrlInput(result.sections[0].issues[0].key);
-    DOM_COMPONENTS.createOpenLink(result.sections[0].issues[0].key);
+    DOM_COMPONENTS.createUrlInput(settings.jiraUrl, result.sections[0].issues[0].key);
+    DOM_COMPONENTS.createOpenLink(settings.jiraUrl, result.sections[0].issues[0].key);
     DOM_COMPONENTS.createCopyLink();
   } else {
     const assignees = settings.assignee === '' ? [settings.login] : [settings.login].concat(settings.assignee.split('\n'));
@@ -52,18 +52,19 @@ function check(appSettings) {
     DOM_COMPONENTS.showMessage('Login or Password is not provided!', 2000);
     return;
   }
-  SERVER.checkIssue(settings, CONSTANT.SEARCH_ISSUE_URL + taskNumber, isIssueCreated);
+  SERVER.checkIssue(settings, settings.jiraUrl + CONSTANT.SEARCH_ISSUE_URL + taskNumber, isIssueCreated);
 }
 
 function create() {
-  var body = TASK_UTILS.getBody(taskNumber, summary, description, document.getElementById('select-assignee').value);
-  SERVER.createIssue(settings, CONSTANT.CREATE_ISSUE_URL, body, checkResultOfCreation)
+  var body = TASK_UTILS.getBody(taskNumber, summary, description, document.getElementById('select-assignee').value,
+      settings.projectKey);
+  SERVER.createIssue(settings, settings.jiraUrl + CONSTANT.CREATE_ISSUE_URL, body, checkResultOfCreation)
 }
 
 function checkResultOfCreation(result) {
   document.getElementById('actions').innerHTML = '';
-  DOM_COMPONENTS.createUrlInput(result.key);
-  DOM_COMPONENTS.createOpenLink(result.key);
+  DOM_COMPONENTS.createUrlInput(settings.jiraUrl, result.key);
+  DOM_COMPONENTS.createOpenLink(settings.jiraUrl, result.key);
   DOM_COMPONENTS.createCopyLink();
   DOM_COMPONENTS.showMessage('Issue created!', 2000) ;
 }

@@ -16,18 +16,18 @@ function comp() {
         return div;
     }
 
-    this.createUrlInput = function (issueKey) {
+    this.createUrlInput = function (jiraUrl, issueKey) {
         let input = document.createElement('input');
         input.id = 'input-link';
         input.readOnly = 'readonly';
-        input.value = CONSTANT.ISSUE_URL + issueKey;
+        input.value = jiraUrl + CONSTANT.ISSUE_URL + issueKey;
         document.getElementById('actions').appendChild(input);
     };
 
-    this.createOpenLink = function (issueKey) {
+    this.createOpenLink = function (jiraUrl, issueKey) {
         let link = document.createElement('a');
         link.id = 'open-link';
-        link.href = CONSTANT.ISSUE_URL + issueKey;
+        link.href = jiraUrl + CONSTANT.ISSUE_URL + issueKey;
         link.innerText = 'Open issue';
         link.target = '_blank';
         document.getElementById('actions').appendChild(link);
