@@ -1,5 +1,5 @@
 function taskUtils() {
-    this.getBody = function (taskNumber, summary, description, assignee, projectKey) {
+    this.getBody = function (taskNumber, summary, description, assignee, projectKey, billable) {
         return {
             fields: {
                 project:
@@ -15,7 +15,7 @@ function taskUtils() {
                     name: assignee
                 },
                 "customfield_19870": {
-                    value: "Billable"
+                    value: billable ? "Billable" : "Non-Billable"
                 }
             }
         };

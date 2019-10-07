@@ -56,8 +56,9 @@ function check(appSettings) {
 }
 
 function create() {
-  var body = TASK_UTILS.getBody(taskNumber, summary, description, document.getElementById('select-assignee').value,
-      settings.projectKey);
+  const assignee = document.getElementById('select-assignee').value;
+  const body = TASK_UTILS.getBody(taskNumber, summary, description, assignee, settings.projectKey,
+      assignee === settings.login);
   SERVER.createIssue(settings, settings.jiraUrl + CONSTANT.CREATE_ISSUE_URL, body, checkResultOfCreation)
 }
 
