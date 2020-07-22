@@ -49,12 +49,26 @@ function processSettings() {
     if (url.charAt(url.length - 1) === '/') {
         url = url.slice(0, -1);
     }
+
+    let devIssueNumber = document.getElementById('development').value;
+    let meetingIssueNumber = document.getElementById('meeting').value;
+    let projectKey = document.getElementById('projectKey').value;
+    if (devIssueNumber && !devIssueNumber.includes(projectKey)) {
+        devIssueNumber = projectKey + '-' + devIssueNumber;
+    }
+    if (meetingIssueNumber && !meetingIssueNumber.includes(projectKey)) {
+        meetingIssueNumber = projectKey + '-' + meetingIssueNumber;
+    }
+
     let settings = {
         login: document.getElementById('login').value,
         password: document.getElementById('password').value,
+        projectKey: projectKey,
+        jiraUrl: url,
         assignee: document.getElementById('assignee').value,
-        projectKey: document.getElementById('projectKey').value,
-        jiraUrl: url
+        devIssue: devIssueNumber,
+        meetingIssue: meetingIssueNumber,
+        defaultMode: document.querySelector('input[name="defaultMode"]:checked').value
     };
 
     if (validateSettings(settings)) {
@@ -71,6 +85,13 @@ function restoreOptions() {
     document.getElementById('assignee').value = settings.assignee || '';
     document.getElementById('projectKey').value = settings.projectKey || '';
     document.getElementById('jiraUrl').value = settings.jiraUrl || '';
+    document.getElementById('development').value = settings.devIssue || '';
+    document.getElementById('meeting').value = settings.meetingIssue || '';
+    if (settings.defaultMode === 'dev') {
+        document.getElementById('devDefault').checked = true;
+    } else {
+        document.getElementById('tasksDefault').checked = true;
+    }
 }
 
 document.addEventListener('DOMContentLoaded', restoreOptions);

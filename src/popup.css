@@ -3,7 +3,7 @@
     min-height: 250px;
     border-radius: 10px;
 }
-h1 {
+h2 {
     text-align: center;
 }
 .form-block {
@@ -31,7 +31,7 @@ h1 {
 select {
     font-size: 15px;
 }
-button {
+button:not(.simple-button) {
     height: 50px;
     width: 50%;
     border-radius: 8px;
@@ -44,5 +44,24 @@ button {
     font-size: 15px;
     text-align: center;
     font-weight: 500;
+    margin-top: 15px;
+}
+
+.mode-tab {
+    padding: 4px 19px;
+    background: lightgray;
+    color: gray;
+}
+
+.mode-tab label {
+    cursor: pointer;
+}
+
+.mode-active{
+    background: cadetblue;
+    color: white;
+}
+
+#devModeActions {
     margin-top: 15px;
 }

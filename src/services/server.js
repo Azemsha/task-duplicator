@@ -51,12 +51,12 @@ function server() {
         };
     }
 
-    this.checkIssue = function (settings, url, resultHandler) {
+    this.getQuery = function (settings, url, resultHandler) {
         const authorizationBasic = buildAuthorizationBasic(settings.login, settings.password);
         httpGet(url, authorizationBasic, resultHandler);
     };
 
-    this.createIssue = function (settings, url, body, resultHandler) {
+    this.postQuery = function (settings, url, body, resultHandler) {
         const authorizationBasic = buildAuthorizationBasic(settings.login, settings.password);
         httpPost(url, body, authorizationBasic, resultHandler);
     };

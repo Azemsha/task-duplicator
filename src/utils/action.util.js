@@ -21,6 +21,14 @@ function taskUtils() {
         };
     };
 
+    this.getLogBody = function (day, timeSpent, comment) {
+        return {
+            timeSpent: timeSpent,
+            comment: comment,
+            started: day
+        };
+    };
+
     return this;
 }
 

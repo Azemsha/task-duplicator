@@ -4,13 +4,13 @@
     <title>Task Exporter Settings</title>
 </head>
 <body>
-<table>
+<table style="margin-bottom: 15px">
     <tr>
-        <td>
+        <td style="width: 160px">
             <label for="login">Login:</label>
         </td>
         <td>
-            <input type="text" id="login">
+            <input type="text" id="login" style="width: 180px">
         </td>
     </tr>
     <tr>
@@ -18,7 +18,44 @@
             <label for="password">Password:</label>
         </td>
         <td>
-            <input type="password" id="password">
+            <input type="password" id="password" style="width: 180px">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label for="jiraUrl">Jira URL (Internal):</label>
+        </td>
+        <td>
+            <input type="text" id="jiraUrl" style="width: 180px">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label for="projectKey">Project key:</label>
+        </td>
+        <td>
+            <input type="text" id="projectKey" style="width: 180px">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label>Default Mode:</label>
+        </td>
+        <td>
+            <p style="margin: 5px 0">
+                <input name="defaultMode" type="radio" value="tasks" id="tasksDefault" checked>
+                <label for="tasksDefault">'Separate Tasks'</label>
+            </p>
+            <p style="margin: 5px 0">
+                <input name="defaultMode" type="radio" value="dev" id="devDefault">
+                <label for="devDefault">'Development / Meeting'</label>
+            </p>
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="2" style="text-align: center; border-bottom: 1px dashed gray">
+            <h4 style="margin: 10px 0 5px">'Separate Tasks' Mode</h4>
         </td>
     </tr>
     <tr>
@@ -29,21 +66,32 @@
             <textarea id="assignee"></textarea>
         </td>
     </tr>
-    <tr>
-        <td>
-            <label for="projectKey">Project key:</label>
-        </td>
-        <td>
-            <input type="text" id="projectKey">
-        </td>
-    </tr>
 
     <tr>
+        <td colspan="2" style="text-align: center; border-bottom: 1px dashed gray">
+            <h4 style="margin: 10px 0 5px">'Development / Meetings' Mode</h4>
+        </td>
+    </tr>
+    <tr>
         <td>
-            <label for="jiraUrl">Jira URL (Internal):</label>
+            <label for="development" title="With or without Project Key. (eg. 'PROJECT-1234' or '1234')"
+                   style="cursor: help">
+                <b>Dev</b> Issue Number:
+            </label>
         </td>
         <td>
-            <input type="text" id="jiraUrl">
+            <input type="text" id="development" style="width: 180px">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label for="meeting" title="With or without Project Key. (eg. 'PROJECT-1234' or '1234')"
+                   style="cursor: help">
+                <b>Meeting</b> Issue Number:
+            </label>
+        </td>
+        <td>
+            <input type="text" id="meeting" style="width: 180px">
         </td>
     </tr>
 </table>

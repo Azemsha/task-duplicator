@@ -62,11 +62,65 @@ function comp() {
         }
     };
 
-    function copyUrl(){
+    function copyUrl() {
         var input = document.getElementById('input-link');
         input.select();
         document.execCommand('copy');
         DOM_COMPONENTS.showMessage('Copied!', 2000);
+    }
+
+    this.showModeSelect = function(mode) {
+        document.getElementById('modeSelect').hidden = false;
+        if (mode === 'dev') {
+            document.getElementById('devMode').checked = true;
+        } else {
+            document.getElementById('tasksMode').checked = true;
+        }
+        selectMode();
+    }
+
+    function selectMode() {
+        const selectedModeElement = document.querySelector('input[name="mode"]:checked');
+        const selectedMode = selectedModeElement.value
+        if (selectedMode === 'dev') {
+            document.getElementById('devModeActions').hidden = false;
+            document.getElementById('actions').hidden = true;
+        } else {
+            document.getElementById('devModeActions').hidden = true;
+            document.getElementById('actions').hidden = false;
+        }
+        document.getElementById('tasksMode').addEventListener('click', selectMode);
+        document.getElementById('devMode').addEventListener('click', selectMode);
+
+        const activeTab = document.getElementsByClassName('mode-active');
+        if (activeTab.length > 0) {
+            activeTab.item(0).classList.remove('mode-active');
+        }
+        selectedModeElement.parentElement.classList.add('mode-active');
+
+        //set date
+        document.getElementById('logDate').valueAsDate = new Date();
+        document.getElementById('yesterdayButton').addEventListener('click', setYesterdayDate);
+        document.getElementById('devHours').value = '7h';
+        document.getElementById('meetingHours').value = '1h';
+    }
+
+    function setYesterdayDate() {
+        document.getElementById('logDate').valueAsDate = new Date(new Date().setDate(new Date().getDate()-1));
+    }
+
+    this.addEventsForLogButtons = function(devButtonClickHandler, meetingButtonClickHandler) {
+        document.getElementById('devLogButton').addEventListener('click', devButtonClickHandler);
+        document.getElementById('meetingLogButton').addEventListener('click', meetingButtonClickHandler);
+    };
+
+    this.hideEmptyControls = function(devIssueNumber, meetingIssueNumber) {
+        if (!devIssueNumber) {
+            document.getElementById('devControl').hidden = true;
+        }
+        if (!meetingIssueNumber) {
+            document.getElementById('meetingControl').hidden = true;
+        }
     }
 
     return this;

@@ -51,15 +51,19 @@ function check(appSettings) {
   if (settings.login === '' || settings.password === '') {
     DOM_COMPONENTS.showMessage('Login or Password is not provided!', 2000);
     return;
+  } else {
+    DOM_COMPONENTS.showModeSelect(settings.defaultMode);
+    DOM_COMPONENTS.addEventsForLogButtons(devLog, meetingLog);
+    DOM_COMPONENTS.hideEmptyControls(settings.devIssue, settings.meetingIssue);
   }
-  SERVER.checkIssue(settings, settings.jiraUrl + CONSTANT.SEARCH_ISSUE_URL + taskNumber, isIssueCreated);
+  SERVER.getQuery(settings, settings.jiraUrl + CONSTANT.SEARCH_ISSUE_URL + taskNumber, isIssueCreated);
 }
 
 function create() {
   const assignee = document.getElementById('select-assignee').value;
   const body = TASK_UTILS.getBody(taskNumber, summary, description, assignee, settings.projectKey,
       assignee === settings.login);
-  SERVER.createIssue(settings, settings.jiraUrl + CONSTANT.CREATE_ISSUE_URL, body, checkResultOfCreation)
+  SERVER.postQuery(settings, settings.jiraUrl + CONSTANT.ISSUE_BASE_URL, body, checkResultOfCreation)
 }
 
 function checkResultOfCreation(result) {
@@ -68,4 +72,33 @@ function checkResultOfCreation(result) {
   DOM_COMPONENTS.createOpenLink(settings.jiraUrl, result.key);
   DOM_COMPONENTS.createCopyLink();
   DOM_COMPONENTS.showMessage('Issue created!', 2000) ;
+}
+
+function devLog() {
+  const date = new Date(document.getElementById('logDate').value);
+  const timeSpent = document.getElementById('devHours').value;
+  const comment = taskNumber + ': ' + summary + '.';
+
+  const body = TASK_UTILS.getLogBody(covertDateToString(date), timeSpent, comment);
+  const url = settings.jiraUrl + CONSTANT.ISSUE_BASE_URL + '/' + settings.devIssue + CONSTANT.LOG_PATH;
+
+  SERVER.postQuery(settings, url, body, showLogMessage)
+}
+
+function meetingLog() {
+  const date = new Date(document.getElementById('logDate').value);
+  const timeSpent = document.getElementById('meetingHours').value;
+
+  const body = TASK_UTILS.getLogBody(covertDateToString(date), timeSpent, '');
+  const url = settings.jiraUrl + CONSTANT.ISSUE_BASE_URL + '/' + settings.meetingIssue + CONSTANT.LOG_PATH;
+
+  SERVER.postQuery(settings, url, body, showLogMessage)
+}
+
+function showLogMessage(result) {
+  DOM_COMPONENTS.showMessage('WorkLog Added!', 2000);
+}
+
+function covertDateToString(date) {
+  return date.toISOString().substring(0, 10) + 'T00:00:01.000+0000';
 }

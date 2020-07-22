@@ -4,6 +4,7 @@
     <title>Export Issues to Internal Jira</title>
     <link rel="stylesheet" href="popup.css">
     <script src="lib/turndown.js"></script>
+    <script src="lib/bootstrap.js"></script>
     <script src="services/server.js"></script>
     <script src="utils/component.util.js"></script>
     <script src="utils/constant.js"></script>
@@ -12,17 +13,48 @@
   </head>
   <body>
     <div class="form">
-      <h1>Task Exporter</h1>
+      <h2>Task Exporter</h2>
       <hr>
       <div class="form-block">
-        <label id="task-number">none</label>
-      </div>
-      <div class="form-block">
-        <label id="summary">none</label>
+        <label id="task-number">none</label> : <label id="summary">none</label>
       </div>
       <hr>
 
+      <div id="modeSelect" hidden="true">
+        <span class="mode-tab">
+          <input name="mode" type="radio" value="tasks" id="tasksMode" hidden>
+          <label for="tasksMode">Separate Tasks</label>
+        </span>
+        <span class="mode-tab">
+          <input name="mode" type="radio" value="dev" id="devMode" hidden>
+          <label for="devMode">Development / Meeting</label>
+        </span>
+      </div>
+
       <div id="actions">
+      </div>
+
+      <div id="devModeActions" hidden>
+        <label for="logDate">Date to Log:</label>
+        <input type="date" id="logDate" style="width: 130px; margin: 0 8px 0 5px">
+        <button id="yesterdayButton" class="simple-button" style="cursor: pointer">yesterday</button>
+
+        <div id="devControl">
+          <h4>Log to Development</h4>
+          <label for="devHours">Time Spent: </label>
+          <input type="text" id="devHours" style="width: 60px; margin: 0 8px">
+          <span> (eg. 6.5h)</span>
+          <button id="devLogButton" class="simple-button" style="cursor: pointer; width: 60px; margin-left: 8px">LOG</button>
+          <hr>
+        </div>
+
+        <div id="meetingControl">
+          <h4>Log to Meeting</h4>
+          <label for="meetingHours">Time Spent: </label>
+          <input type="text" id="meetingHours" style="width: 60px; margin: 0 8px">
+          <span> (eg. 1.2h)</span>
+          <button id="meetingLogButton" class="simple-button" style="cursor: pointer; width: 60px; margin-left: 8px">LOG</button>
+        </div>
       </div>
 
       <div id="message">
